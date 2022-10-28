@@ -1,0 +1,28 @@
+version: '2.3'
+
+services:
+
+  evaluation_backend:
+    image: evaluation_api_backend:latest
+    ports:
+      - "6300:6300"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./output:/app/output
+      - ./src:/app/src
+      - ./servable:/app/servable
+      - ./servable_images:/app/servable_images
+      - ./datasets:/app/datasets
+      - ./data:/app/data
+    healthcheck:
+      test: curl localhost:6300/health || exit 1
+      interval: 30s
+      timeout: 10s
+      start_period: 10s
+      retries: 3
+    restart: always
+
+  user_interface:
+    image: evaluation_gui:latest
+    ports:
+      - "4200:80"

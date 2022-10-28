@@ -1,0 +1,24 @@
+<div class="app-header" *media="'(min-width: 769px)'">
+  <span class="header-title">{{ title }}</span>
+</div>
+
+<nz-header *media="'(max-width: 768px)'"
+           class="mobile-header">
+  <i nz-icon nzType="check" nzTheme="outline"
+     style="color: #ff005b; font-size: 2.5em; padding-right: 20px"></i>
+  <a nz-dropdown class="nav-menu" [nzDropdownMenu]="menu" nzTrigger="click">
+    <i nz-icon nzType="menu" nzTheme="outline"></i></a>
+  <nz-dropdown-menu #menu="nzDropdownMenu">
+    <ul nz-menu>
+      <li nz-menu-item
+          *ngFor="let item of navItems"
+          [id]="item.title"
+          [nzSelected]="item.isSelected"
+          [routerLink]="item.routerLink">
+        <i nz-icon [nzType]="item.icon"></i>
+        <span style="font-family: Roboto-Regular,sans-serif">{{item.title}}</span>
+      </li>
+    </ul>
+  </nz-dropdown-menu>
+  <span class="header-title" style="color: #682C38">{{ title }}</span>
+</nz-header>

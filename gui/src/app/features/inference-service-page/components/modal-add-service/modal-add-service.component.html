@@ -1,0 +1,98 @@
+<nz-modal
+        [(nzVisible)]="settings.isVisible"
+        [nzTitle]="modalTitle"
+        [nzContent]="modalContent"
+        [nzFooter]="modalFooter"
+        (nzOnCancel)="handleCancel()"
+        nzWrapClassName="vertical-center-modal">
+    <ng-template #modalTitle>
+        Add Service
+    </ng-template>
+    <ng-template #modalContent>
+        <form nz-form [formGroup]="inferenceForm" [nzLayout]="'vertical'">
+            <!-- Service name      -->
+            <nz-form-item>
+                <nz-form-label nzFor="name">Name:</nz-form-label>
+                <nz-form-control nzErrorTip="Please input your service name">
+                    <input nz-input
+                           name="name"
+                           type="name"
+                           id="name"
+                           formControlName="serviceName"
+                           placeholder="Name"
+                           nz-tooltip="the name of your dataset folder">
+                </nz-form-control>
+            </nz-form-item>
+
+            <!-- url    -->
+            <nz-form-item>
+                <nz-form-label nzFor="url">Url:</nz-form-label>
+                <nz-form-control nzErrorTip="Please input the url">
+                    <input nz-input
+                           name="url"
+                           type="url"
+                           id="url"
+                           formControlName="url"
+                           placeholder="Url"
+                           nz-tooltip="inference service URL">
+                </nz-form-control>
+            </nz-form-item>
+
+            <!-- Dataset type     -->
+            <nz-form-item>
+                <nz-form-label nzFor="url">Type:</nz-form-label>
+                <nz-form-control>
+                    <nz-select formControlName="datasetType"
+                               nzPlaceHolder="Dataset Type"
+                               nzShowSearch
+                               nzAllowClear
+                               nz-tooltip="the type of your data"
+                               nzTooltipPlacement="topRight">
+                        <nz-option *ngFor="let type of datasetTypes" [nzLabel]="type.name"
+                                   [nzValue]="type.value"></nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+
+            <!-- Discoverable model      -->
+            <nz-form-item>
+                <nz-form-control>
+                    <label nz-checkbox
+                           formControlName="discoverModels" (ngModelChange)="toggleModelsValidator()">
+                  <span>
+                    Discover Models
+                  </span>
+                    </label>
+                </nz-form-control>
+            </nz-form-item>
+
+            <!-- models   -->
+            <nz-form-item [hidden]="inferenceForm.value.discoverModels">
+                <nz-form-label nzFor="models">Model(s):</nz-form-label>
+                <nz-form-control nzErrorTip="Please input model(s)">
+                    <nz-select nzMode="tags"
+                               nzPlaceHolder="Model(s)"
+                               formControlName="modelsList"
+                               [nzDropdownRender]="renderTemplate">
+                        <nz-option *ngFor="let option of []" [nzLabel]="option" [nzValue]="option"></nz-option>
+                    </nz-select>
+                    <ng-template #renderTemplate>
+                        <nz-divider></nz-divider>
+                        <div class="container">
+                            <input type="text" nz-input #inputElement/>
+                            <a class="add-item"><i nz-icon nzType="plus"></i> Add item</a>
+                        </div>
+                    </ng-template>
+                </nz-form-control>
+            </nz-form-item>
+
+        </form>
+    </ng-template>
+
+    <ng-template #modalFooter>
+        <button nz-button nzType="primary"
+                [nzLoading]="settings.adding"
+                (click)="handleOk()">Add
+        </button>
+    </ng-template>
+</nz-modal>

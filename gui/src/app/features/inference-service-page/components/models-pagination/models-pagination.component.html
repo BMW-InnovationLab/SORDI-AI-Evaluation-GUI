@@ -1,0 +1,22 @@
+<div class="main-container">
+    <a [ngClass]="(currentPage > 1)? 'active':'inactive'" *ngIf="totalPages > 1">
+        <i nz-icon
+           nzType="left"
+           nzTheme="outline"
+           (click)="previous()"></i>
+    </a>
+
+    <nz-tag *ngFor="let model of modelsDisplayed"
+            nzColor="default"
+            style="border-color: #ff005b"
+            nz-tooltip
+            [nzTooltipTitle]="model">
+        {{ model | formatText }}
+    </nz-tag>
+    <a [ngClass]="(currentPage<totalPages)? 'active':'inactive'" *ngIf="totalPages > 1">
+        <i nz-icon
+           nzType="right"
+           nzTheme="outline"
+           (click)="next()"></i>
+    </a>
+</div>

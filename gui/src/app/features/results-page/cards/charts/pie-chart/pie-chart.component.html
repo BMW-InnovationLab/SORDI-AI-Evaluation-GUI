@@ -1,0 +1,27 @@
+<apx-chart  (click)="toggleOverlay()"
+  [series]="chartOptions.series"
+  [chart]="chartOptions.chart"
+  [labels]="chartOptions.labels"
+  [responsive]="chartOptions.responsive"
+  [title]="chartOptions.title"
+></apx-chart>
+
+
+<nz-modal
+  [(nzVisible)]="showOverlay"
+  [nzTitle]="chartOptions.title.text"
+  nzCentered
+  [nzBodyStyle]="{'padding': '15px','border-radius': '5px'}"
+  nzWidth="70%"
+  nzFooter=" "
+  (nzOnCancel)="toggleOverlay()"
+  (nzOnOk)="toggleOverlay()">
+  <ng-container *nzModalContent>
+    <apx-chart
+      [series]="chartOptions.series"
+      [chart]="chartOptions.chart"
+      [labels]="chartOptions.labels"
+      [responsive]="chartOptions.responsive"
+    ></apx-chart>
+  </ng-container>
+</nz-modal>

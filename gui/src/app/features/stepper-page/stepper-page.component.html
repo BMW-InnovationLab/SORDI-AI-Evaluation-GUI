@@ -1,0 +1,55 @@
+<app-layout>
+
+  <app-title title="Evaluate Job" header></app-title>
+
+  <div content class="stepper">
+
+    <nz-card class="stepper-card-container">
+      <div class="steps-content" nz-col>
+        <nz-card class="stepper-card">
+          <nz-steps [nzCurrent]="current" class="stepper-header">
+            <nz-step nzIcon="book" nzTitle="Dataset"></nz-step>
+            <nz-step nzIcon="setting" nzTitle="Job Parameters"></nz-step>
+          </nz-steps>
+
+          <div class="steps-content">
+            <div [hidden]="current !== 0">
+              <app-choose-dataset (uploadStatusChanged)="changeNextButtonStatus($event)"
+                                  style="width: 100%"></app-choose-dataset>
+            </div>
+            <div [hidden]="current !== 1">
+              <app-evaluation-topic (hideObjectDetectionForm)="toggleFields($event)"
+                                    [datasetName]="getDataset().name"
+                                    [jobType]="inferenceTypeName(getDataset().type)"
+              ></app-evaluation-topic>
+              <app-object-detection [hidden]="objectDetectionHidden"
+                                    style="width: 100%;"></app-object-detection>
+            </div>
+          </div>
+
+        </nz-card>
+
+      </div>
+      <div class="steps-action" nz-col>
+        <div class="buttons-div">
+          <button *ngIf="current === 0"
+                  [nzLoading]="nextButtonLoading"
+                  (click)="next()"
+                  nz-button nzType="primary">
+            <span>Next</span>
+          </button>
+          <button *ngIf="current === 1"
+                  (click)="submitForm()"
+                  [nzLoading]="submitDisabled" nz-button nzType="primary">
+            <span>Start job</span>
+          </button>
+          <button (click)="goBack()" *ngIf="current > 0"
+                  nz-button nzType="default">
+            <span>Previous</span>
+          </button>
+        </div>
+      </div>
+    </nz-card>
+  </div>
+
+</app-layout>

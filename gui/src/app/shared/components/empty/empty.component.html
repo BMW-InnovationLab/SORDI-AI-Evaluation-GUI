@@ -1,0 +1,13 @@
+<nz-empty class="no-running-jobs"
+          [nzNotFoundContent]="contentTpl">
+    <ng-template #contentTpl>
+        <h3 class="no-running-jobs-text" style="padding-top: 7%">No Running Jobs</h3>
+        <h2 class="no-running-jobs-text">
+            Click
+            <a nz-button nzType="link" (click)="gotoJobsPage()">
+                <i style="color: #ff005b; font-size: 1.5em" nz-icon nzType="plus-circle" nzTheme="fill"></i>
+            </a>
+            to evaluate a job
+        </h2>
+    </ng-template>
+</nz-empty>

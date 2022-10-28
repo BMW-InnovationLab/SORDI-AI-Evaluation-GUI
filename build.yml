@@ -1,0 +1,22 @@
+version: '2.3'
+
+services:
+
+  evaluation_backend:
+    image: evaluation_api_backend
+    build:
+      context: ./
+      dockerfile: docker/Dockerfile
+      args:
+        http_proxy: 
+        https_proxy:
+  
+  user_interface:
+    image: evaluation_gui
+    build:
+      context: ./gui
+      dockerfile: ./Dockerfile
+      args:
+        http_proxy:
+        https_proxy:
+

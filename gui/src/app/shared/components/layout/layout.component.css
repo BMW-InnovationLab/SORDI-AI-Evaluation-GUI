@@ -1,0 +1,31 @@
+:host ::ng-deep nz-header {
+  padding: 0;
+  width: 100%;
+  z-index: 2;
+}
+
+:host ::ng-deep .app-header {
+  position: relative;
+  height: 120px;
+  padding-left: 6.5em;
+  background: #F5F5F5;
+  display: flex;
+  align-items: center;
+}
+
+
+:host ::ng-deep .trigger-header, .trigger-header {
+  font-size: 18px;
+  padding-left: 24px;
+  padding-right: 15px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+:host ::ng-deep .header-title {
+  font-family: Roboto-Regular, sans-serif;
+  font-size: 2.8vh;
+  color: #682C38;
+  height: 64px;
+  overflow: hidden;
+}

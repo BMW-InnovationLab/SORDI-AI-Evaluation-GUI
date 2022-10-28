@@ -1,0 +1,108 @@
+<form nz-form [formGroup]="commonFormFields"
+      nzLayout="vertical"
+      class="form">
+
+    <!--  Dataset name -->
+    <nz-form-item class="form-item">
+        <nz-form-control nzFlex="1">
+
+            <input nz-input [placeholder]="datasetName" [disabled]="true"/>
+        </nz-form-control>
+    </nz-form-item>
+  <nz-form-item class="form-item">
+        <nz-form-control nzFlex="1">
+            <input nz-input [placeholder]="jobType" [disabled]="true"/>
+        </nz-form-control>
+    </nz-form-item>
+
+    <!--Job Name-->
+    <nz-form-item class="form-item">
+        <nz-form-label nzFlex="1">Job Name :</nz-form-label>
+        <nz-form-control nzFlex="1" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="userErrorTpl">
+            <input nz-tooltip="folder used to save resulting weights"
+                   nzTooltipPlacement="topRight"
+                   nz-input formControlName="job_name" placeholder="Job Name"/>
+            <ng-template #userErrorTpl let-control>
+                <ng-container *ngIf="control.hasError('required')">
+                    Please input the job name!
+                </ng-container>
+                <ng-container *ngIf="control.hasError('duplicated')">
+                    The job name is redundant!
+                </ng-container>
+            </ng-template>
+        </nz-form-control>
+    </nz-form-item>
+
+
+  <!--  Author Name-->
+  <nz-form-item class="form-item">
+        <nz-form-label nzFlex="1">Author Name</nz-form-label>
+    <nz-form-control nzFlex="2" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="authorErrorTpl">
+      <!--todo update tooltip -->
+      <input nz-tooltip="Who made this job"
+      nzTooltipPlacement="topRight"
+                   nz-input formControlName="author_name" placeholder="Author Name"/>
+            <ng-template #authorErrorTpl let-control>
+                <ng-container *ngIf="control.hasError('required')">
+                    Please input the author name!
+                </ng-container>
+            </ng-template>
+        </nz-form-control>
+    </nz-form-item>
+
+
+  <!--  url-->
+  <nz-form-item class="form-item">
+    <nz-form-label nzFlex="1">Service url</nz-form-label>
+    <nz-form-control nzFlex="1" nzHasFeedback [nzErrorTip]="serviceErrorTpl">
+      <nz-select formControlName="service" nzPlaceHolder="Service" nzShowSearch nzAllowClear
+                 nz-tooltip="the name of your service" nzTooltipPlacement="topRight"
+                 (ngModelChange)="filterModels($event)">
+        <nz-option *ngFor="let services of availableServiceUrls" [nzLabel]="services.name"
+                   [nzValue]="services.value"></nz-option>
+      </nz-select>
+      <ng-template #serviceErrorTpl let-control>
+        <ng-container *ngIf="control.hasError('required')">
+          Please choose a url!
+        </ng-container>
+      </ng-template>
+    </nz-form-control>
+  </nz-form-item>
+
+  <!--  Batch size -->
+  <nz-form-item class="form-item">
+    <nz-form-label nzFlex="1">Batch size</nz-form-label>
+    <nz-form-control nzFlex="1" nzHasFeedback>
+      <nz-input-number
+        nz-tooltip="Number of predictions executed before calculations"
+        nzTooltipPlacement="topRight"
+        formControlName="batch_size"
+        nzPlaceHolder="Batch Size"
+        [nzMin]="1"
+        [nzStep]="1"
+        [nzPrecisionMode]="'toFixed'"
+        style="width: 100%"
+      ></nz-input-number>
+    </nz-form-control>
+  </nz-form-item>
+
+
+
+    <!-- Model-->
+    <nz-form-item style="display: block; width: 100%;">
+        <nz-form-label nzFlex="2">Model :</nz-form-label>
+        <nz-form-control nzFlex="2" nzHasFeedback [nzErrorTip]="modelErrorTpl">
+            <nz-select formControlName="model"
+                       nzPlaceHolder="Model"
+                       nzShowSearch nzAllowClear
+                       nz-tooltip="the name of your model" nzTooltipPlacement="topRight">
+                <nz-option *ngFor="let models of availableModels" [nzLabel]="models" [nzValue]="models"></nz-option>
+            </nz-select>
+            <ng-template #modelErrorTpl let-control>
+                <ng-container *ngIf="control.hasError('required')">
+                    Please choose a model!
+                </ng-container>
+            </ng-template>
+        </nz-form-control>
+    </nz-form-item>
+</form>

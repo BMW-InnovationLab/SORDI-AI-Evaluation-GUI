@@ -1,0 +1,91 @@
+<form nz-form [formGroup]="objectDetectionForm "
+      nzLayout="vertical"
+      style="display: flex; justify-content: space-between; flex-wrap: wrap;">
+
+  <!--  Label type:-->
+  <!--  <nz-form-item style="display: block; width: 100%;">-->
+  <!--    <nz-form-label nzFlex="1">Label Type</nz-form-label>-->
+  <!--    <nz-form-control nzFlex="1">-->
+  <!--      <nz-select-->
+  <!--        formControlName="labelType">-->
+  <!--        <nz-option *ngFor="let labelType of labelTypes" [nzLabel]="labelType.name" [nzValue]="labelType.value"></nz-option>-->
+  <!--      </nz-select>-->
+  <!--    </nz-form-control>-->
+  <!--  </nz-form-item>-->
+
+  <!-- Good Threshold -->
+  <nz-form-item class="form-item">
+    <nz-form-label nzFlex="1">Good IoU Threshold:</nz-form-label>
+    <nz-form-control nzFlex="1" nzHasFeedback>
+      <nz-input-number
+        nz-tooltip=""
+        nzTooltipPlacement="topRight"
+        formControlName="goodThreshold"
+        style="width: 100%"
+        nzPlaceHolder="Good IoU Threshold:"
+        [nzMin]="0"
+        [nzMax]="1"
+        [nzStep]="0.1"
+      ></nz-input-number>
+    </nz-form-control>
+  </nz-form-item>
+
+  <!-- Average Threshold -->
+  <nz-form-item class="form-item">
+    <nz-form-label nzFlex="1">Average IoU Threshold</nz-form-label>
+    <nz-form-control nzFlex="1"
+                     nzHasFeedback
+                     [nzErrorTip]="invalidIoUTpl">
+      <nz-input-number
+        nz-tooltip="Value of IoU considered average"
+        nzTooltipPlacement="topRight"
+        formControlName="averageThreshold"
+        style="width: 100%"
+        nzPlaceHolder="Average IoU Threshold"
+        [nzMin]="0"
+        [nzMax]="1"
+        [nzStep]="0.1"
+        (ngModelChange)="updateIoUValidator()"
+      ></nz-input-number>
+      <ng-template #invalidIoUTpl let-control>
+        <ng-container *ngIf="control.hasError('iouValueError')">
+          Average IoU threshold must be lower than the good IoU.
+        </ng-container>
+      </ng-template>
+    </nz-form-control>
+  </nz-form-item>
+
+  <!-- IoU threshold-->
+  <nz-form-item class="form-item wide">
+    <nz-form-label nzFlex="2">IoU Threshold</nz-form-label>
+    <nz-form-control nzFlex="2" nzHasFeedback>
+      <nz-input-number
+        nz-tooltip="Used to discard Prediction associated with a ground truth having an IoU smaller than IoU grouping"
+        nzTooltipPlacement="topRight"
+        formControlName="iouThreshold"
+        nzPlaceHolder="IoU Threshold"
+        [nzMin]="0"
+        [nzMax]="1"
+        [nzStep]="0.1"
+        style="width: 100%"
+      ></nz-input-number>
+    </nz-form-control>
+  </nz-form-item>
+
+  <!-- Confidence Threshold -->
+  <nz-form-item class="form-item wide">
+    <nz-form-label nzFlex="2">Confidence Threshold</nz-form-label>
+    <nz-form-control nzFlex="2" nzHasFeedback>
+      <nz-input-number
+              nz-tooltip=""
+              nzTooltipPlacement="topRight"
+              formControlName="confidenceThreshold"
+              nzPlaceHolder="Confidence Threshold"
+              [nzMin]="0"
+              [nzMax]="1"
+              [nzStep]="0.1"
+              style="width: 100%"
+      ></nz-input-number>
+    </nz-form-control>
+  </nz-form-item>
+</form>

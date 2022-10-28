@@ -1,0 +1,129 @@
+::-webkit-scrollbar {
+  display: none;
+}
+
+.add-service-card {
+  opacity: 0.7;
+  border-radius: 15px;
+  border: 1px dotted #ff005b;
+  line-height: 260px;
+  height: 260px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.service-card.refresh{
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.loading-overlay{
+  position: absolute;
+  bottom: 10px;
+  left: 1rem;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.loading-overlay > i {
+  color: #ff005b;
+}
+
+.service-card {
+  border-radius: 15px;
+  overflow: hidden;
+  height: 260px;
+  display: block;
+  position: relative;
+}
+
+.url {
+  min-font-size: 15px;
+  white-space: nowrap;
+  overflow-x: hidden;
+}
+
+h3 {
+  font-family: Roboto-Regular, sans-serif;
+  font-size: 12px;
+  letter-spacing: 2px;
+  margin: 0 0 5px;
+  padding: 0;
+  font-weight: bold;
+}
+
+/*.url-mobile {*/
+/*  display: flex;*/
+/*  justify-content: center;*/
+/*}*/
+
+.card-menu {
+  position: absolute;
+  right: 20px;
+}
+
+.refresh-card{
+  position: absolute;
+  left: 20px;
+  font-size: 15px;
+}
+
+.add-service-card:hover {
+  opacity: 1;
+  transition: opacity 0.4s ease-in;
+}
+
+.add-service-card-title-text {
+  font-size: 1.5em;
+  margin-left: 0.5em;
+  color: #ff005b;
+}
+
+.add-service-card-title-icon {
+  font-size: 1.5em;
+  color: #ff005b;
+}
+
+.modelTags {
+  height: 65%;
+  width: 100%;
+  font-size: 17.5px;
+}
+
+::ng-deep .vertical-center-modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+::ng-deep .vertical-center-modal .ant-modal {
+  top: 0;
+}
+
+nz-divider {
+  margin: 4px 0;
+}
+
+.container {
+  display: flex;
+  flex-wrap: nowrap;
+  padding: 8px;
+}
+
+
+.add-item {
+  flex: 0 0 auto;
+  padding: 8px;
+  display: block;
+}
+
+@media screen and (max-width: 425px) {
+  .add-service-card-title-text {
+    font-size: 1em;
+  }
+
+  .add-service-card-title-icon {
+    font-size: 1em;
+  }
+}

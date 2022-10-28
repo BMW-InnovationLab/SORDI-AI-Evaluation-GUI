@@ -1,0 +1,172 @@
+<app-layout>
+  <app-title header title="Inference API Services"></app-title>
+
+  <div content
+       nz-row nzJustify="center"
+       style="margin-top: 2.24em; justify-content: flex-start; align-items: center; display: flex; flex-wrap: wrap;">
+
+    <div nz-col
+         [nzXs]="{ span: 24 }"
+         [nzSm]="{ span: 24 }"
+         [nzMd]="{ span: 24 }"
+         [nzLg]="{ span: 12 }"
+         [nzXl]="{ span: 8}"
+         style="padding: 1em; opacity: 0.8"
+         (click)="showModal()">
+      <nz-skeleton *ngIf="loading"  [nzActive]="true"></nz-skeleton>
+
+      <nz-card [nzHoverable]="true" class="add-service-card" *ngIf="!loading">
+        <i class="add-service-card-title-icon" nz-icon nzType="plus" nzTheme="outline"></i>
+        <span class="add-service-card-title-text">Add Service</span>
+      </nz-card>
+    </div>
+
+    <div nz-col *ngFor="let item of inferenceServices; let index = index"
+         [nzXs]="{ span: 24 }"
+         [nzSm]="{ span: 24 }"
+         [nzMd]="{ span: 24 }"
+         [nzLg]="{ span: 12 }"
+         [nzXl]="{ span: 8}" style="padding: 1em;">
+      <nz-card class="service-card"
+               [class.refresh]="item.refreshing"
+               [nzActions]="item.editable ? [actionSave, actionUndo] : [actionMenu]"
+               [nzBordered]="true">
+        <div class="loading-overlay" *ngIf="item.refreshing">
+          <i nz-icon [nzType]="'sync'" [nzSpin]="true"></i>
+        </div>
+
+
+        <div nz-row style="height: 164px; display: flex; align-items: center; flex-wrap: wrap; position: relative">
+          <div nz-col style="width: 100%;">
+
+            <div style="height: 100%; display: flex; align-items: center; flex-wrap: wrap; justify-content: space-between">
+              <div style="height: 90% ;overflow: hidden;   margin-top: 0.1%; text-overflow: ellipsis;"
+                   [ngStyle]="{'text-decoration-line': item.editable ? 'underline' : 'none',
+                       'width': mobile ? '100%' : '60%', 'display': mobile ? 'flex' : 'block',
+                        'justify-content': mobile ? 'center' : ''}">
+                          <span style="font-size: 22px; line-height: 20px; width: 100%;
+                            text-overflow: ellipsis;
+                          text-wrap: normal;"
+                                [contentEditable]="item.editable" [id]="'name' + index"
+                                (change)="getChanges(index)"
+                                [ngStyle]="{'text-align': mobile ? 'center' : ''}"
+                                nz-tooltip
+                                [nzTooltipTitle]="item.name">
+                              {{ item.name }}
+                          </span>
+              </div>
+              <div style="height: 90%; align-items: end" [ngStyle]="{'width': mobile ? '100%' : '30%', 'margin-top': mobile ? '5%' : ''}">
+                <nz-tag [nzColor]="'default'" *ngIf="!item.editable"
+                        style="width: fit-content; display: flex; justify-content: center; align-items: center;
+                           border-radius: 10px; float: right; border: 1px solid #ff005b; flex-wrap: wrap">
+                  {{getInferenceTypeName(item.inferenceType)  }}
+                </nz-tag>
+                <nz-select *ngIf="item.editable" [id]="'type' + index" [(ngModel)]="tagValue"
+                           (ngModelChange)="getChanges(index)"
+                           style="width: 100%; display: flex; justify-content: center; align-items: center; border-radius: 10px; float: right;">
+                  <nz-option *ngFor="let datasetType of datasetTypes" [nzLabel]="datasetType.name"
+                             [nzValue]="datasetType.value"></nz-option>
+                </nz-select>
+              </div>
+            </div>
+          </div>
+          <div nz-col style="width: 100%; display: flex; align-items: center; flex-wrap: wrap;">
+            <div class="url"
+                 [contentEditable]="item.editable" [id]="'url' + index"
+                 (change)="getChanges(index)"
+                 [ngStyle]="{'text-decoration-line': item.editable ? 'underline' : 'none',
+                      'width': (item.editable) ? '55%' : '100%',
+                      'display': mobile ? 'flex' : '', 'justify-content': mobile ? 'center' : ''}">
+              <h3 *ngIf="!item.editable">Inference URL </h3>
+              <span>{{ item.url }} </span>
+            </div>
+            <div style="width: 5%; height: 100%;" *ngIf="item.editable"></div>
+            <div style="white-space: nowrap;"
+                 [ngStyle]="{'width': mobile  ? '100%' : '40%',
+                      'display': mobile ? 'flex' : '', 'justify-content': mobile ? 'center' : ''}">
+              <label nz-checkbox [(ngModel)]="item.discoverModels" *ngIf="item.editable">
+                <span>Discover Models</span>
+              </label>
+            </div>
+          </div>
+          <div *ngIf="!item.discoverModels" nz-col style="height: 36px; width: 100%;">
+            <div *ngIf="!item.editable && !item.discoverModels" class="modelTags">
+              <h3>Used Models</h3>
+              <app-models-pagination style="width: 100%" [models]="item.models"></app-models-pagination>
+            </div>
+            <div *ngIf="item.editable && !item.discoverModels" style="width: 100%; height: 90%;">
+              <nz-select nzMode="tags" nzPlaceHolder="Model(s)" style="width: 100%;" [(ngModel)]="item.models"
+                         [nzMaxTagCount]="2" [nzDropdownRender]="renderTemplate">
+                <nz-option *ngFor="let model of item.models" [nzLabel]="model"
+                           [nzValue]="model"></nz-option>
+              </nz-select>
+              <ng-template #renderTemplate>
+                <nz-divider></nz-divider>
+                <div class="container">
+                  <input type="text" nz-input #inputElement/>
+                  <a class="add-item" (click)="addModelToItem(item, inputElement.value)"><i nz-icon
+                                                                                            nzType="plus"></i>
+                    Add item</a>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </nz-card>
+
+      <ng-template #actionSave>
+        <i nz-icon [nzType]="modifyIconType" [nzSpin]="modifying" (click)="saveChanges(index)"
+           nz-tooltip nzTooltipTitle="save" [nzTooltipPlacement]="'bottom'"
+           [nzTooltipMouseEnterDelay]="1"></i>
+      </ng-template>
+      <ng-template #actionUndo>
+        <i nz-icon nzType="rollback" nzTheme="outline" nz-tooltip nzTooltipTitle="cancel"
+           [nzTooltipPlacement]="'bottom'"
+           [nzTooltipMouseEnterDelay]="1" (click)="cancelChanges(index)"></i>
+      </ng-template>
+      <ng-template #actionMenu>
+        <div class="card-menu">
+          <i nz-icon nzType="menu"
+             nz-button nz-dropdown
+             style="font-size: 1.2em"
+             [nzDropdownMenu]="menu"
+             nzPlacement="bottomCenter"
+             nzTheme="outline"></i>
+          <nz-dropdown-menu #menu="nzDropdownMenu">
+            <ul nz-menu>
+              <li nz-menu-item
+                  (click)="editService(index)">
+                <i nz-icon
+                   nzType="edit"
+                   nzTheme="outline"
+                   style="padding-right: 8px"></i>
+                Edit Service
+              </li>
+              <li nz-menu-item  (click)="refreshService(item)">
+                <i nz-icon
+                   nzType="undo"
+                   nzTheme="outline"
+                   style="padding-right: 8px"></i>
+                Refresh Service
+              </li>
+              <li nz-menu-item style="color: #fd4d56"
+                  (click)="removeService(index)">
+                <i nz-icon
+                   nzType="close-circle"
+                   nzTheme="outline"
+                   style="padding-right: 8px"></i>
+                Remove Service
+              </li>
+            </ul>
+          </nz-dropdown-menu>
+        </div>
+      </ng-template>
+    </div>
+
+    <app-modal-add-service
+      [settings]="modalSettings"
+      [datasetTypes]="datasetTypes"
+      (newServiceAdded)="addNewService($event)"
+    ></app-modal-add-service>
+  </div>
+</app-layout>

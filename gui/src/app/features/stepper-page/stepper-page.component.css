@@ -1,0 +1,98 @@
+.stepper {
+    margin: 1.5em 1.5em 1.5em 0;
+    width: 100%;
+    height: 70vh;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.stepper-card-container{
+  width: 90%;
+}
+
+nz-card{
+  border-radius: 20px;
+
+}
+
+.steps-content {
+    width: 100%;
+    overflow: hidden;
+}
+
+.steps-action {
+    margin-top: 24px;
+    width: 100%;
+}
+
+button {
+    margin-right: 8px;
+    float: right;
+}
+
+.checkbox {
+    margin-top: 4px;
+    margin-left: 8px;
+    float: left;
+}
+
+.stepper-card {
+    border-radius: 15px;
+    width: 100%;
+}
+
+
+@media screen and (max-width: 540px) {
+    .stepper {
+        top: 20%;
+        margin-bottom: 160px;
+    }
+
+    .stepper-header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .steps-action {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .checkbox {
+        margin: 0.5em 0;
+    }
+
+    button {
+        margin: 0.8em 0.2em;
+    }
+
+    .buttons-div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        flex-direction: row-reverse;
+    }
+
+    .buttons-div > button {
+        margin-left: 10px;
+    }
+
+    label {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+@media screen and (max-width: 540px){
+  .stepper-card-container{
+    width: 100%;
+  }
+}

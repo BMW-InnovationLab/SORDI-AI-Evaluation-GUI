@@ -1,0 +1,33 @@
+<div class="content">
+  <button nz-button
+          nz-popover
+          nzType="default"
+          (click)="toggleDefinitions()"
+          nzShape="circle">
+    <i
+      nz-icon nzType="question-circle" style="color: #682C38;font-size: 24px" nzTheme="outline"></i>
+  </button>
+
+  <div class="definitions"
+       [@showHideDefinitionsAnimation]
+       *ngIf="showDefinitions">
+    <div class="definition" *ngFor="let definition of definitions">
+      <div class="term">
+        {{definition.term}}
+      </div>
+      <div class="value">
+        {{definition.definition}}<span class="boundary">{{definition.boundaries}}</span>
+      </div>
+      <nz-divider></nz-divider>
+    </div>
+  </div>
+
+
+  <!--    -->
+  <!--    <nz-descriptions nzTitle="Definitions">-->
+  <!--      <nz-descriptions-item-->
+  <!--        *ngFor="let definition of definitions"-->
+  <!--        [nzTitle]="definition.term">{{definition.definition}}</nz-descriptions-item>-->
+  <!--    </nz-descriptions>-->
+  <!--  </ng-template>-->
+</div>

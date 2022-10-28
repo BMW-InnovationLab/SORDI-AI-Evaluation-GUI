@@ -1,0 +1,32 @@
+<div *ngIf="!noImagesFound; else noImages">
+  <nz-carousel nzAutoPlay="false"
+               style="height: 320px; padding-top: 20px" #carousel>
+      <img nz-image
+           [nzDisablePreview]="true"
+           nz-carousel-content
+           (click)="previewCarousel(image)"
+           *ngFor="let image of images, let index = index"
+           [nzSrc]="image"
+           alt=""
+           (error)="removeImage(index)"
+           style="height: auto; max-height: 278px; display: block;
+           width: 100%; object-fit: contain">
+  </nz-carousel>
+</div>
+
+<i nz-icon nzType="right"
+   *ngIf="!noImagesFound"
+   (click)="carousel.next()"
+   class="arrow arrow-right"
+   nzTheme="outline"></i>
+<i nz-icon nzType="left"
+   *ngIf="!noImagesFound"
+   class="arrow arrow-left"
+   (click)="carousel.pre()"
+   nzTheme="outline"></i>
+
+<ng-template #noImages>
+  <div class="notFound">
+    <p>No images found for this class.</p>
+  </div>
+</ng-template>

@@ -1,0 +1,27 @@
+.header-title {
+  font-family: Roboto-Regular, sans-serif;
+  font-size: 2em;
+  color: #682C38
+}
+
+.mobile-header {
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  line-height: 64px;
+  padding-left: 25px;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.nav-menu{
+  position: absolute;
+  right: 20px;
+  top: 0;
+}
+
+.nav-menu i{
+  font-weight: bold;
+  font-size: 1.2rem;
+}

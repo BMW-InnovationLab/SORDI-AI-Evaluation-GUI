@@ -1,0 +1,35 @@
+<apx-chart (click)="toggleOverlay()"
+        [series]="chartOptions.series"
+        [chart]="chartOptions.chart"
+        [dataLabels]="chartOptions.dataLabels"
+        [plotOptions]="chartOptions.plotOptions"
+        [yaxis]="chartOptions.yaxis"
+        [legend]="chartOptions.legend"
+        [fill]="chartOptions.fill"
+        [stroke]="chartOptions.stroke"
+        [xaxis]="chartOptions.xaxis"
+        [title]="chartOptions.title"
+></apx-chart>
+<nz-modal
+  [(nzVisible)]="showOverlay"
+  [nzTitle]="chartOptions.title.text"
+  nzCentered
+  [nzBodyStyle]="{'padding': '15px','border-radius': '5px'}"
+  nzWidth="70%"
+  nzFooter=" "
+  (nzOnCancel)="toggleOverlay()"
+  (nzOnOk)="toggleOverlay()">
+  <ng-container *nzModalContent>
+    <apx-chart
+      [series]="chartOptions.series"
+      [chart]="chartOptions.chart"
+      [dataLabels]="chartOptions.dataLabels"
+      [plotOptions]="chartOptions.plotOptions"
+      [yaxis]="chartOptions.yaxis"
+      [legend]="chartOptions.legend"
+      [fill]="chartOptions.fill"
+      [stroke]="chartOptions.stroke"
+      [xaxis]="chartOptions.xaxis"
+    ></apx-chart>
+  </ng-container>
+</nz-modal>

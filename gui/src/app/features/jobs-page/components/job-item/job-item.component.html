@@ -1,0 +1,146 @@
+<nz-card class="card"
+         [ngClass]="(item.progress==100)? 'border-done': 'border-progress'"
+         nzHoverable="true"
+         nzBordered>
+  <div nz-row nzJustify="start"
+       nzAlign="middle">
+    <div class="progress">
+      <nz-progress [nzPercent]="item.progress"
+                   *media="'(min-width: 601px)'"
+                   nzWidth="40"
+                   nzStrokeWidth="7"
+                   [nzStrokeColor]="(item.progress<100)? '#ff005b': 'success'"
+                   nzType="circle"></nz-progress>
+    </div>
+
+    <div class="information">
+      <div>
+        <span class="jobTitle">{{ item.job_name }}</span>
+      </div>
+      <nz-progress [nzPercent]="item.progress"
+                   *media="'(max-width: 600px)'"
+                   nzWidth="40"
+                   nzStrokeWidth="7"
+                   [nzStrokeColor]="(item.progress<100)? '#ff005b': 'success'"
+                   nzType="line"></nz-progress>
+      <div>
+
+        <div>Model:</div>
+        <span (click)="triggerFilterForModel(item.model_name)"
+              class="filterable"
+              (mouseover)="showFilterIconModel=true"
+              (mouseout)="showFilterIconModel=false">{{ item.model_name }}
+          <i nz-icon
+             *ngIf="showFilterIconModel"
+             nzType="filter" nzTheme="outline"></i>
+        </span>
+      </div>
+      <div>
+        <div>Dataset:</div>
+        <span (click)="triggerFilterForDataset(item.dataset_name)"
+              class="filterable"
+              (mouseover)="showFilterIconDataset=true"
+              (mouseout)="showFilterIconDataset=false">{{ item.dataset_name }}
+          <i nz-icon
+             *ngIf="showFilterIconDataset"
+             nzType="filter" nzTheme="outline"></i>
+        </span>
+      </div>
+      <div>
+        <div>Author:</div>
+        <span>{{ item.author_name }}</span>
+      </div>
+    </div>
+
+    <div class="button-group">
+      <div *media="'(min-width: 769px)'"
+           style="display: flex; justify-content: flex-end; align-items: center; ">
+        <button [disabled]="item.status === jobStatus.InProgress"
+                nz-button
+                nzType="default"
+                nzShape="circle"
+                nzSize="large"
+                (click)="downloadResults(item.uid)"
+                [style.opacity]="(item.status  === jobStatus.InProgress)? 0.6:1"
+                style="margin-right: 20px;  color: #ff005b;">
+          <i nz-icon nzType="download"></i>
+        </button>
+        <button nz-button
+                [disabled]="item.progress == 0"
+                [style.opacity]="(item.progress==0)? 0.6:1"
+                nzType="default"
+                nzShape="circle"
+                nzSize="large"
+                style="color: #ff005b "
+                (click)="navigateToResultsPage()">
+          <i nz-icon nzType="dashboard"></i>
+        </button>
+        <button nz-button
+                nzType="default"
+                nzShape="circle"
+                nzSize="large"
+                nzDanger
+                style="margin-left: 20px;"
+                nz-popconfirm
+                [nz-tooltip]="(item.progress==100)? 'Remove job':'Abort Job'"
+                nzPopconfirmTitle="Are you sure?"
+                nzPopconfirmPlacement="bottom"
+                (nzOnConfirm)="removeJob()">
+          <i nz-icon [nzType]="item.status == jobStatus.Done ? 'close-circle' : 'stop'"></i>
+        </button>
+      </div>
+
+      <div *media="'(max-width: 768px)'"
+           style="display: flex; justify-content: flex-end; align-items: center; ">
+        <button nz-button
+                nz-dropdown
+                nzType="default"
+                nzShape="circle"
+                nzSize="large"
+                style="border: 0; box-shadow: 1px 1px 6px rgba(0,21,41,.35);"
+                [nzDropdownMenu]="menu">
+          <i nz-icon nzType="menu"></i>
+        </button>
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+          <ul nz-menu>
+            <button [disabled]="item.status === jobStatus.InProgress"
+                    nz-menu-item
+                    nz-button
+                    nzType="default"
+                    nzSize="large"
+                    (click)="downloadResults(item.uid)"
+                    style="color: #ff005b; border: 0; width: 100%">
+              <i nz-icon nzType="download"></i>
+              <span>Download report</span>
+            </button>
+            <li nz-menu-divider></li>
+            <li nz-menu-divider></li>
+            <button nz-menu-item
+                    nz-button
+                    nzType="default"
+                    nzSize="large"
+                    style="border: 0; color: #ff005b; width: 100%"
+                    (click)="navigateToResultsPage()">
+              <i nz-icon nzType="dashboard"></i>
+              <span>Show Results</span>
+            </button>
+            <li nz-menu-divider></li>
+            <li nz-menu-divider></li>
+            <button nz-button
+                    nz-menu-item
+                    nzDanger
+                    nzType="default"
+                    nzSize="large"
+                    style="border: 0; width: 100%"
+                    (click)="removeJob()">
+              <i nz-icon
+                 [nzType]="item.status == jobStatus.Done ? 'close-circle' : 'stop'"></i>
+              <span>{{item.status == jobStatus.Done ? 'Close Job' : 'Stop Job'}}</span>
+            </button>
+            <li nz-menu-divider></li>
+          </ul>
+        </nz-dropdown-menu>
+      </div>
+    </div>
+  </div>
+</nz-card>

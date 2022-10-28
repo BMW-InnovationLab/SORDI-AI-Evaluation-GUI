@@ -1,0 +1,59 @@
+<form [formGroup]="datasetForm" nz-form nzLayout="vertical">
+  <nz-form-item class="form-item-textbox">
+    <!--  Dataset -->
+    <nz-form-label nzFlex="1">Choose an existing dataset:</nz-form-label>
+    <nz-form-control [nzErrorTip]="datasetErrorTpl" nzFlex="1" nzHasFeedback>
+      <div>
+        <nz-tree-select nzAllowClear
+                        nz-tooltip="Your dataset folder with its type"
+                        [nzNodes]="nzDatasetTree"
+                        nzShowSearch
+
+                        nzPlaceHolder="Dataset folder"
+                        formControlName="datasetName">
+          <ng-template #nzTreeTemplate let-node>
+        <span class="ant-tree-node-content-wrapper"  (click)="datasetNodeClicked(node, $event)"
+              [class.ant-tree-node-selected]="node.isSelected">
+          <span>  {{ node.title }} </span>
+        </span>
+          </ng-template>
+        </nz-tree-select>
+      </div>
+      <ng-template #datasetErrorTpl let-control>
+        <ng-container *ngIf="control.hasError('required')">
+          Please choose a dataset folder!
+        </ng-container>
+      </ng-template>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label nzFlex="1">Or upload your own:</nz-form-label>
+    <nz-form-control>
+      <nz-upload (nzChange)="handleChange($event)"
+                 [nzCustomRequest]="uploadDataset"
+                 [nzFilter]="filterUploads"
+                 [nzHeaders]="{ authorization: 'authorization-text' }"
+                 [nzMultiple]="false"
+                 [nzShowUploadList]="{showDownloadIcon: false, showRemoveIcon: true}"
+                 nzAccept=".zip"
+                 nzLimit="1"
+                 nzType="drag"
+                 style="width: 100%">
+        <p class="ant-upload-drag-icon">
+          <i nz-icon nzType="inbox"></i>
+        </p>
+        <p class="ant-upload-text">Click or drag your file to this area to upload</p>
+        <p class="ant-upload-hint">
+          You can only upload zip files
+        </p>
+      </nz-upload>
+      <nz-progress [nzPercent]="progress"
+                   [nzShowInfo]="true"
+                   [nzStrokeWidth]="5"
+                   nzStrokeColor="#ff005b"
+                   [nzStatus]="uploadSettings.status"></nz-progress>
+    </nz-form-control>
+  </nz-form-item>
+
+</form>

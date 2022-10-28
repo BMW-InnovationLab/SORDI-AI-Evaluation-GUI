@@ -1,0 +1,6 @@
+{
+  "base_dataset": "/app/datasets",
+  "object_detection_datasets": "/app/datasets/object_detection",
+  "classification_datasets": "/app/datasets/image_classification",
+  "inference_api_services": "../data/inference_api_services.json"
+}

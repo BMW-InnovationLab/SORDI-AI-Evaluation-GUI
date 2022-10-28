@@ -1,0 +1,11 @@
+.no-running-jobs {
+    z-index: 10;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.no-running-jobs-text {
+    font-family: Roboto-Light sans-serif;
+}

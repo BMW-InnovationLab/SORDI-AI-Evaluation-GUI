@@ -1,0 +1,94 @@
+.card {
+  width: 100%;
+  overflow: auto;
+  border-radius: 5px;
+  border: 1px solid #ebe7e3;
+  cursor: default;
+  padding-right: 2rem;
+}
+
+.border-progress {
+  border-left: 4px solid rgba(255, 0, 91, 0.82);
+}
+
+.border-done {
+  border-left: 4px solid #52C41A;
+}
+
+.progress {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 25px;
+}
+
+.information > div {
+  display: flex;
+}
+
+.button-group {
+  position: absolute;
+  bottom: 50%;
+  transform: translateY(50%);
+  right: 20px;
+}
+
+.information > div > div {
+  margin-right: 10px;
+  font-weight: bold;
+  width: 3.5rem;
+}
+
+.information > div > span {
+  margin-right: 10px;
+  color: gray;
+}
+
+.information > div > span.filterable {
+  cursor: pointer;
+}
+
+.information > div > span.filterable:hover {
+  color: #ff005b;
+}
+
+.jobTitle {
+  font-size: 1.9em;
+  transform: translateY(-10px);
+}
+
+.job-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+
+@media only screen and (min-width: 280px) and (max-width: 1024px) {
+  .jobTitleParentDiv {
+    padding-left: 0;
+  }
+
+  .jobTitle {
+    font-size: 1.5em;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .information > div {
+    display: block;
+    position: relative;
+  }
+
+  .information > div > div {
+    width: 100%;
+  }
+
+  .button-group{
+    transform: translateX(0);
+    bottom: 1rem;
+  }
+}

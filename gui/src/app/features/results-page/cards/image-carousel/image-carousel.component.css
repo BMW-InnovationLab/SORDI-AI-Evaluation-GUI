@@ -1,0 +1,61 @@
+[nz-carousel-content] {
+  text-align: center;
+  height: 303px !important;
+  line-height: 303px;
+  background: #fff;
+  color: #fff;
+  overflow: hidden;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  font-size: 1.5rem;
+  font-weight: lighter;
+  opacity: 0.75;
+  transform: translateY(calc(-50% - 10px));
+  cursor: pointer;
+}
+
+.arrow.arrow-left {
+  left: 20px;
+}
+
+.arrow.arrow-right {
+  right: 20px;
+}
+
+h3 {
+  font-family: Roboto-Regular, sans-serif;
+  color: #fff;
+  margin-bottom: 0;
+}
+
+/*.slick-track {*/
+/*    height: fit-content;*/
+/*}*/
+
+.notFound {
+  width: 100%;
+  height: 330px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-family: Roboto-Light, sans-serif;
+  opacity: 0.7;
+}
+
+@media screen and (max-width: 600px) {
+  .notFound {
+    font-size: 18px;
+    text-align: center
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .notFound {
+    font-size: 14px;
+    text-align: center
+  }
+}

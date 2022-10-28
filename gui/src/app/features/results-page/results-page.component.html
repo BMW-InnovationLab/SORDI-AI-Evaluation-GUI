@@ -1,0 +1,86 @@
+<app-layout>
+  <div header>
+    <app-title [title]="pageTitle"></app-title>
+    <div style="width: 100%; padding: 0 3em; height: 70px;">
+      <nz-tabset [nzTabBarExtraContent]="extraTemplate"
+                 (nzSelectedIndexChange)="changeTab($event)"
+                 style="width: 100%">
+        <nz-tab *ngFor="let tab of tabs;" [nzTitle]="tab"></nz-tab>
+      </nz-tabset>
+      <ng-template #extraTemplate>
+        <button *ngIf="requestedJobStatus?.progress==100" (click)="downloadResults()" nz-button
+                nzType="primary">Download full report
+          as zip
+        </button>
+        <nz-progress *ngIf="requestedJobStatus?.progress<100"
+                     [nzPercent]="requestedJobStatus?.progress"
+                     nzWidth="40"
+                     nzStrokeWidth="7"
+                     [nzStrokeColor]="(requestedJobStatus?.progress<100)? '#ff005b': 'success'"
+                     nzType="circle"></nz-progress>
+      </ng-template>
+    </div>
+  </div>
+  <div class="loading" content *ngIf="!pageReady">
+    <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+  </div>
+
+  <div content *ngIf="pageReady" class="main">
+    <app-help [jobType]="requestedJob.jobType"></app-help>
+    <div class="metrics">
+      <nz-col [nzSpan]="3"
+              [nzXXl]="3"
+              [nzXl]="3"
+              [nzLg]="5"
+              [nzMd]="5"
+              [nzSm]="11"
+              [nzXs]="24"
+              *ngFor="let metric of metrics">
+        <nz-card class="stats"
+                 [nzBodyStyle]="{'padding': '5px'}">
+          <div class="stats-title">{{metric.metric}}</div>
+          <nz-progress class="stats-content" [nzPercent]="(metric.value) |number: '0.0-1'"
+                       nzStrokeColor="#ff005b"
+                       nzWidth="45"
+                       [nzStatus]="'normal'"
+                       nzStrokeWidth="8"
+                       nzType="circle"></nz-progress>
+        </nz-card>
+      </nz-col>
+    </div>
+
+    <nz-card class="detail-card">
+      <app-details-card [evaluationJobDetails]="requestedJob"></app-details-card>
+    </nz-card>
+
+    <nz-card class="image-card">
+      <div class="legend">
+        <div style="color: #008ffb">
+          True label:
+          <div style="background-color:#008efb"></div>
+        </div>
+        <div style="color: #FF4560">
+          Predicted label:
+          <div style="background-color:#FF4560"></div>
+        </div>
+      </div>
+      <app-image-carousel [source]="imageSource" class="image-carousel"></app-image-carousel>
+    </nz-card>
+
+    <nz-card class="pie-chart">
+      <app-pie-chart
+        [chartData]="graphsData['pie_chart']"
+      ></app-pie-chart>
+    </nz-card>
+    <nz-card class="histogram-card"
+             *ngIf="graphsData['histogram']">
+      <app-histogram
+        [chartData]="graphsData['histogram']"
+      ></app-histogram>
+    </nz-card>
+    <nz-card class="heat-map-card" *ngIf="graphsData['heat_map'] !== undefined">
+      <app-heat-map
+        [chartData]="graphsData['heat_map']"></app-heat-map>
+    </nz-card>
+  </div>
+</app-layout>

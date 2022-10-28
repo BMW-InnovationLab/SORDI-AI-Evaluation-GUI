@@ -1,0 +1,42 @@
+<nz-layout class="app-layout" style="display: flex;">
+  <nz-sider class="menu-sidebar"
+            *media="'(min-width: 769px)'"
+            nzCollapsible
+            nzWidth="240px"
+            nzBreakpoint="md"
+            [nzCollapsed]="isCollapsed"
+            [nzTrigger]="null" nzTheme="light">
+    <div class="sidebar-logo">
+      <i nz-icon nzType="check" nzTheme="outline"
+         style="color: #ff005b; font-size: 2.5em; padding-right: 20px"></i>
+      <span style="color: #682C38; font-size: 2em; padding-top: 5px; font-family : Roboto-Regular,sans-serif;">Evaluation</span>
+    </div>
+    <ul nz-menu nzTheme="light" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+      <li nz-menu-item
+          *ngFor="let item of navItems"
+          [id]="item.title"
+          [nzSelected]="item.isSelected"
+          [routerLink]="item.routerLink">
+        <i nz-icon [nzType]="item.icon"></i>
+        <span style="font-family: Roboto-Regular,sans-serif">{{item.title}}</span>
+      </li>
+    </ul>
+
+    <div class="toggle-sidenav">
+      <nz-divider></nz-divider>
+      <span class="header-trigger" (click)="toggleMenu()">
+          <i class="trigger"
+             nz-icon
+             [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+          ></i>
+      </span>
+    </div>
+  </nz-sider>
+
+  <nz-layout >
+    <div class="content" #pageContent>
+      <router-outlet></router-outlet>
+    </div>
+  </nz-layout>
+  <nz-back-top [nzTarget]="pageContent"></nz-back-top>
+</nz-layout>

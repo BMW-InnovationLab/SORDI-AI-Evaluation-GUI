@@ -1,0 +1,63 @@
+.content {
+  position: fixed;
+  bottom: 1rem;
+  right: 2rem;
+  z-index: 5000;
+}
+
+.content > button {
+  width: 40px;
+  height: 40px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+}
+
+.content > button:hover {
+  box-shadow: 0 0 2px rgba(104, 44, 56, 0.4);
+}
+
+.definitions {
+  overflow-y: auto;
+  -ms-overflow-y: auto;
+  padding: 1rem 1rem 3rem;
+  border-radius: 12px;
+  width: 30vw;
+  height: 60vh;
+  max-width: 70vh;
+  border: 1px solid rgba(104, 44, 56, 0.4);
+  box-shadow: 0 0 5px rgba(104, 44, 56, 0.4);
+  background-color: white;
+}
+
+.definition > .term{
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #682C38;
+}
+
+.definition > .value {
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+.definition .value .boundary{
+  text-decoration: underline;
+  -moz-text-decoration-line: underline;
+}
+
+nz-divider{
+  margin: 10px  0;
+}
+
+@media screen and (max-width: 600px){
+  .definitions{
+    width: 70vw;
+    height: 80vh;
+  }
+}
+
