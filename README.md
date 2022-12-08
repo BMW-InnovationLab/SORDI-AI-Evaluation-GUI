@@ -271,6 +271,6 @@ metrics document </a>
 - Charbel Bou Maroun, [inmind.ai](https://inmind.ai/), Beirut, Lebanon
 - Ismail Shehab, [inmind.ai](https://inmind.ai/), Beirut, Lebanon
 - [Chafic Abou Akar](https://www.github.com/chaficii), BMW TechOffice, Munich, Germany
-- Jimmy Tekli, BMW Innovation Lab, Munich, Germany
 - Lorenzo Azar, BMW Innovation Lab, Munich, Germany
+- Jimmy Tekli, BMW Innovation Lab, Munich, Germany
 
