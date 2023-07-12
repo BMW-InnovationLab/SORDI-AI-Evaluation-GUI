@@ -262,6 +262,19 @@ metrics document </a>
 
 <br>
 
+## Citing
+
+If you use this repository in your research, consider citing it using the following Bibtex entry:
+
+```
+@misc{sordievaluationtool,
+  author = {BMW TechOffice MUNICH},
+  title = {AI Evaluation GUI},
+  how publishedd = {\url{https://github.com/BMW-InnovationLab/SORDI-AI-Evaluation-GUI}},
+  year = {2022},
+}
+```
+
 ## Acknowledgments
 
 - Joe Sleiman, [inmind.ai](https://inmind.ai/), Beirut, Lebanon
