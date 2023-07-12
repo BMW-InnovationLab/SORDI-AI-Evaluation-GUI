@@ -270,7 +270,7 @@ If you use this repository in your research, consider citing it using the follow
 @misc{sordievaluationtool,
   author = {BMW TechOffice MUNICH},
   title = {AI Evaluation GUI},
-  how publishedd = {\url{https://github.com/BMW-InnovationLab/SORDI-AI-Evaluation-GUI}},
+  howpublished = {\url{https://github.com/BMW-InnovationLab/SORDI-AI-Evaluation-GUI}},
   year = {2022},
 }
 ```
